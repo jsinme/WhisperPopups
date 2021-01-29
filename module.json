@@ -13,21 +13,7 @@
       "discord": "jsinme#6969"
     }
   ],
-  "dependencies": [
-
-  ],
-  "conflicts": [
-    
-  ],
-  "esmodules": [
-    "/scripts/module.js"
-  ],
-  "scripts": [
-    "/scripts/lib/lib.js"
-  ],
-  "styles": [
-    "/styles/module.css"
-  ],
+  "esmodules": ["/scripts/whisper-popup.js"],
   "languages": [
     {
       "lang": "en",

@@ -9,27 +9,25 @@ Hooks.on("createChatMessage", (message, options, userId) => {
 
   if (!popup) return;
 
-  if (message.data.whisper.length > 0 && message.data.whisper.find((el) => el == game.userId) != undefined) {
+  if (game.userId != userId && message.data.whisper.find((el) => el == game.userId) != undefined) {
     let d = new Dialog({
-      title: "Test",
-      content: "<p>" + game.users.get(userId).data.name + "</p>" +
-        "<p>" + message.data.content + "</p>",
+      title: "Whisper from " + game.users.get(userId).data.name,
+      content: "<p>" + message.data.content + "</p>",
       buttons: {
-        one: {
-          label: "test",
-          callback: () => console.log("testing")
-        }
+        dismiss: {
+          label: "Dismiss",
+          callback: () => {},
+        },
       },
-      default: "one"
+      default: "dismiss",
     });
     d.render(true);
 
     if (autoDismiss) {
       setTimeout(() => {
         d.close();
-      }, dismissInterval*1000);
+      }, dismissInterval * 1000);
     }
-
   }
 });
 
@@ -37,32 +35,32 @@ function registerSettings() {
   game.settings.register("whisper-popup", "enableWhisperPopups", {
     name: "Display Popups",
     hint: "Set whether or not to display popups when receiving whispers",
-    scope: "world",
+    scope: "client",
     config: true,
     type: Boolean,
-    default: false
+    default: false,
   });
 
   game.settings.register("whisper-popup", "autoDismissWhispers", {
     name: "Auto Dismiss",
     hint: "Set whether whisper popups should automatically be dismissed",
-    scope: "world",
+    scope: "client",
     config: true,
     type: Boolean,
-    default: false
+    default: false,
   });
 
   game.settings.register("whisper-popup", "dismissInterval", {
     name: "Dismiss Interval",
     hint: "How long to wait before auto dismissing",
-    scope: "world",
+    scope: "client",
     config: true,
     type: Number,
     range: {
       min: 1,
       max: 120,
-      step: 1
+      step: 1,
     },
-    default: 10
+    default: 10,
   });
 }
